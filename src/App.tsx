@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Layout } from "antd";
+import { HeaderComponent } from "./Components/Header/HeaderComponent";
+import { MainPage } from "./Components/MainPage/MainPage";
+import { CartPage } from "./Components/CartPage/CartPage";
+import { Routes, Route } from "react-router-dom";
+import { AdminLoginPage } from "./Components/AdminLoginPage/AdminLoginPage";
+import { useState } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
+
+    return (
+        <div className="App">
+            <Layout>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<MainPage login={login} password={password} />}
+                    />
+                    <Route path="cart" element={<CartPage />} />
+                    <Route
+                        path="admin"
+                        element={
+                            <AdminLoginPage
+                                login={login}
+                                setLogin={setLogin}
+                                password={password}
+                                setPassword={setPassword}
+                            />
+                        }
+                    />
+                </Routes>
+            </Layout>
+        </div>
+    );
 }
 
 export default App;
