@@ -15,8 +15,8 @@ export const CartWrapperComponent: FC<CartWrapperProps> = observer(
     ({ ChildComponent, title, address, setAddress }) => {
         const drawChildComponent = () => {
             if (title === "Корзина:") {
-                return mainStore.cart.cartProducts.length > 0 ? (
-                    mainStore.cart.cartProducts.map((product) => (
+                return mainStore.cart.cartProducts.size > 0 ? (
+                    Array.from(mainStore.cart.cartProducts).map((product) => (
                         <ChildComponent product={product} />
                     ))
                 ) : (

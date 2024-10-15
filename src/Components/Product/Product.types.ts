@@ -1,9 +1,7 @@
-import { productType } from "../data/data";
+import { productType, productEntityType } from "../data/data";
 
 export interface ProductProps {
-    product: productType;
-    login: string;
-    password: string;
-    filteredProductsList: productType[];
-    setFilteredProductsList: (value: productType[]) => void;
+    product: [number, productEntityType];
+    filteredProductsList: productType;
+    setFilteredProductsList: (value: productType) => void;
 }

@@ -7,7 +7,7 @@ import { observer } from "mobx-react";
 export const CartButton = observer(() => {
     return (
         <Link to={`cart`} className={button_wrapper}>
-            <img src={cart} alt="asd" width={25} height={25} />
+            <img src={cart} alt="cart" width={25} height={25} />
             <span>{priceCountHandler()} ₽</span>
         </Link>
     );

@@ -1,7 +1,7 @@
-import { productType } from "../data/data";
+import { productType, productEntityType } from "../data/data";
 
 export interface DeleteButtonProps {
-    product: productType;
+    product: [number, productEntityType];
     type: string;
-    setFilteredProductsList?: (value: productType[]) => void;
+    setFilteredProductsList?: (value: productType) => void;
 }

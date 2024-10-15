@@ -3,3 +3,7 @@
     height: 100vh;
     background-color: #fcf8f2;
 }
+
+body::-webkit-scrollbar {
+    width: 0;
+}

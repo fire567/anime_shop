@@ -17,14 +17,16 @@ export const Cart: FC<CartProps> = ({ product }) => {
             {product ? (
                 <>
                     <div style={leftSide}>
-                        <ProductPic picType={"cartPic"} pic={product.pic} />
+                        <ProductPic picType={"cartPic"} pic={product[1].pic} />
                         <div style={cartDescription}>
-                            <span>Название: {product?.productName}</span>
-                            <span>Аниме: {product?.anime}</span>
-                            <span>Материал: {product?.material}</span>
-                            <span>Страна производства: {product?.country}</span>
-                            <span>Высота: {product?.height} см</span>
-                            <span>Цена: {product?.price} ₽</span>
+                            <span>Название: {product[1]?.productName}</span>
+                            <span>Аниме: {product[1]?.anime}</span>
+                            <span>Материал: {product[1]?.material}</span>
+                            <span>
+                                Страна производства: {product[1]?.country}
+                            </span>
+                            <span>Высота: {product[1]?.height} см</span>
+                            <span>Цена: {product[1]?.price} ₽</span>
                         </div>
                     </div>
                     <div style={rightSide}>

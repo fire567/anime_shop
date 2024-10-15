@@ -1,10 +1,8 @@
 import { productType } from "../data/data";
 
 export interface ProductsListContainerProps {
-    filteredProductsList: productType[];
-    setFilteredProductsList: (value: productType[]) => void;
-    login: string;
-    password: string;
+    filteredProductsList: productType;
+    setFilteredProductsList: (value: productType) => void;
     currentPage: number;
     setCurrentPage: (value: number) => void;
     setSearchBarText: (value: string) => void;

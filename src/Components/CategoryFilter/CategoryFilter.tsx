@@ -6,13 +6,13 @@ import {
     buttonWrapper,
 } from "./CategoryFilter.styles";
 import { Button } from "antd";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { CategoryFilterProps } from "./CategoryFilter.types";
 import mainStore from "../../store/mainStore";
-import { filteredproducts } from "../../helpers";
+import { filterProducts } from "../../helpers";
 
 export const CategoryFilter: FC<CategoryFilterProps> = ({
-    currentAnimeCutegory,
+    currentAnimeCategory,
     setCurrentAnimeCategory,
     currentMaterialCutegory,
     setCurrentMaterialCategory,
@@ -24,21 +24,25 @@ export const CategoryFilter: FC<CategoryFilterProps> = ({
     setCurrentPage,
     setSearchBarText,
 }) => {
-    const productsFilterHandler = () => {
-        setSearchBarText("");
-        setCurrentPage(1);
-        setFilteredProductsList(
-            filteredproducts(
-                currentAnimeCutegory,
+    const memFilterProducts = useMemo(
+        () =>
+            filterProducts(
+                currentAnimeCategory,
                 currentMaterialCutegory,
                 priceTo,
                 priceFrom
-            )
-        );
+            ),
+        [currentAnimeCategory, currentMaterialCutegory, priceTo, priceFrom]
+    );
+
+    const productsFilterHandler = () => {
+        setSearchBarText("");
+        setCurrentPage(1);
+        setFilteredProductsList(memFilterProducts);
     };
 
     const resetFilterHandler = () => {
-        setFilteredProductsList(mainStore.products.allProducts);
+        setFilteredProductsList(Array.from(mainStore.products.allProducts));
         setSearchBarText("");
         setPriceFrom(0);
         setPriceTo(0);
@@ -54,7 +58,7 @@ export const CategoryFilter: FC<CategoryFilterProps> = ({
                 categoryName={"Аниме"}
                 categoryTitle="anime"
                 setValue={setCurrentAnimeCategory}
-                value={currentAnimeCutegory}
+                value={currentAnimeCategory}
             />
             <Categories
                 categoryName={"Материал"}

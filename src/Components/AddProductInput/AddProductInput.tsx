@@ -6,34 +6,20 @@ export const AddProductInput: FC<AddProductInputProps> = ({
     label,
     name,
     message,
-    state,
     options,
-    setState,
     convertToBase64,
 }) => {
     const showInput = () => {
         if (options === "number") {
-            return (
-                <InputNumber
-                    type="number"
-                    onChange={(e) => {
-                        setState(Number(e!) > 0 ? e!.toString() : "0");
-                    }}
-                    min={1}
-                    defaultValue={0}
-                />
-            );
+            return <Input type="number" />;
         } else if (Array.isArray(options)) {
             return (
                 <Select
                     placeholder="Select a option and change input text above"
-                    onChange={(e) => {
-                        setState(e);
-                    }}
                     allowClear
                 >
                     {options.map((option) => (
-                        <Select.Option value={option.title}>
+                        <Select.Option value={option.title} key={option.id}>
                             {option.title}
                         </Select.Option>
                     ))}
@@ -43,9 +29,7 @@ export const AddProductInput: FC<AddProductInputProps> = ({
             return <input type="file" onChange={(e) => convertToBase64(e)} />;
         }
 
-        return (
-            <Input value={state} onChange={(e) => setState(e.target.value)} />
-        );
+        return <Input />;
     };
 
     return (
@@ -55,6 +39,8 @@ export const AddProductInput: FC<AddProductInputProps> = ({
             rules={[
                 {
                     required: true,
+
+                    min: 3,
                     message: message,
                 },
             ]}

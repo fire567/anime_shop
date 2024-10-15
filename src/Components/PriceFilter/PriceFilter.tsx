@@ -14,14 +14,14 @@ export const PriceFilter: FC<priceFilterProps> = ({
         <div className={priceFilterWrapper}>
             <Input
                 placeholder={"От"}
-                value={priceFrom}
+                value={priceFrom ? priceFrom : ""}
                 onChange={(e) => setPriceFrom(Number(e.target.value))}
                 className={priceFilter}
                 type="number"
             />
             <Input
                 placeholder={"До"}
-                value={priceTo}
+                value={priceTo ? priceTo : ""}
                 onChange={(e) => setPriceTo(Number(e.target.value))}
                 className={priceFilter}
                 type="number"

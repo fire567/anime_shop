@@ -16,7 +16,9 @@ export const DeleteButton: FC<DeleteButtonProps> = observer(
                 mainStore.cart.deleteCartProduct(product);
             } else if (type === "admin") {
                 mainStore.products.deleteProduct(product);
-                setFilteredProductsList!([...mainStore.products.allProducts]);
+                setFilteredProductsList!(
+                    Array.from(mainStore.products.allProducts)
+                );
             }
         };
 

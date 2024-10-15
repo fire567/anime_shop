@@ -24,14 +24,14 @@ export const ModalComponent: FC<ModalComponentProps> = ({
             width={1100}
         >
             <div className={modalContentWrapper}>
-                <ProductPic picType={"modalPic"} pic={product.pic} />
+                <ProductPic picType={"modalPic"} pic={product[1].pic} />
                 <div className={description}>
-                    <span>Название: {product.productName}</span>
-                    <span>Аниме: {product.anime}</span>
-                    <span>Материал: {product.material}</span>
-                    <span>Страна производства: {product.country}</span>
-                    <span>Высота: {product.height} см</span>
-                    <span>Цена: {product.price} ₽</span>
+                    <span>Название: {product[1].productName}</span>
+                    <span>Аниме: {product[1].anime}</span>
+                    <span>Материал: {product[1].material}</span>
+                    <span>Страна производства: {product[1].country}</span>
+                    <span>Высота: {product[1].height} см</span>
+                    <span>Цена: {product[1].price} ₽</span>
                 </div>
             </div>
         </Modal>

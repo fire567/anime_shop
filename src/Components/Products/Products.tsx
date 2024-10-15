@@ -8,19 +8,15 @@ export const Products: FC<ProductsProps> = ({
     currentListItems,
     setFilteredProductsList,
     filteredProductsList,
-    login,
-    password,
 }) => {
     return (
         <div className={productsWrapper}>
             <Row gutter={16}>
                 {currentListItems &&
-                    currentListItems.map((product) => (
-                        <Col key={product.id} span={6}>
+                    Array.from(currentListItems).map((product) => (
+                        <Col key={product[0]} span={6}>
                             <Product
                                 product={product}
-                                login={login}
-                                password={password}
                                 filteredProductsList={filteredProductsList}
                                 setFilteredProductsList={
                                     setFilteredProductsList

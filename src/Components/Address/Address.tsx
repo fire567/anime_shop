@@ -11,7 +11,7 @@ export const Address: FC<AddressProps> = ({ address, setAddress }) => {
     return (
         <div style={orderWrapper}>
             <Input
-                placeholder="Поиск"
+                placeholder="Введите адрес"
                 style={addressBarWrapper}
                 onChange={(e) => setAddress(e.target.value)}
                 value={address}

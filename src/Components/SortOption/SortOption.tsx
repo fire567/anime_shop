@@ -1,37 +1,31 @@
-import { FC, useState } from "react";
-import { sortOptionWrapper, triangleWrapper } from "./SortOption.style";
+import { FC } from "react";
+import {
+    sortOptionWrapper,
+    increasedTriangleWrapper,
+    decreasedTriangleWrapper,
+} from "./SortOption.style";
 import triangle from "../../assets/triangle.svg";
 import { SortOptionProps } from "./SortOption.types";
-import { nameSortHandler, priceSortHandler } from "../../helpers";
 
 export const SortOption: FC<SortOptionProps> = ({
     text,
-    setFilteredProductsList,
-    filteredProductsList,
+    filterHandler,
+    switcher,
 }) => {
-    const [switcher, setSwitcher] = useState(false);
+    const drawSwitcher = () => {
+        if (switcher === "ASC") {
+            return decreasedTriangleWrapper;
+        } else if (switcher === "DESC") {
+            return increasedTriangleWrapper;
+        }
 
-    const filterHandler = () => {
-        setSwitcher(!switcher);
-
-        if (text === "По названию") {
-            nameSortHandler(
-                filteredProductsList,
-                setFilteredProductsList,
-                switcher
-            );
-        } else
-            priceSortHandler(
-                filteredProductsList,
-                setFilteredProductsList,
-                switcher
-            );
+        return decreasedTriangleWrapper;
     };
 
     return (
-        <div className={sortOptionWrapper} onClick={() => filterHandler()}>
+        <div className={sortOptionWrapper} onClick={() => filterHandler(text)}>
             {text}
-            <img src={triangle} className={triangleWrapper} />
+            <img src={triangle} className={drawSwitcher()} />
         </div>
     );
 };

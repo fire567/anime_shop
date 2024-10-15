@@ -6,8 +6,6 @@ export const AuthorizationInput: FC<AuthorizationInputProps> = ({
     label,
     name,
     message,
-    text,
-    setText,
 }) => {
     return (
         <Form.Item
@@ -16,11 +14,12 @@ export const AuthorizationInput: FC<AuthorizationInputProps> = ({
             rules={[
                 {
                     required: true,
+                    min: 3,
                     message: message,
                 },
             ]}
         >
-            <Input value={text} onChange={(e) => setText(e.target.value)} />
+            <Input />
         </Form.Item>
     );
 };

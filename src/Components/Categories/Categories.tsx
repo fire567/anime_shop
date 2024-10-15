@@ -23,6 +23,7 @@ export const Categories: FC<CategoriesProps> = ({
                     setValue={setValue}
                     value={value}
                     filterTitle={item.title}
+                    key={item.id}
                 />
             ));
         }

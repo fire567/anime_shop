@@ -5,7 +5,6 @@ export interface AddProductInputProps {
     name: string;
     message: string;
     options: materialCategoriesTypes[] | animeCategoriesTypes[] | null | string;
-    state: string;
-    setState: (value: string) => void;
+
     convertToBase64: (value: any) => void;
 }

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { CategoryFilter } from "../CategoryFilter/CategoryFilter";
 import { CategoryFilterContainerProps } from "./CategoryFilterContainer.types";
 
@@ -8,7 +8,7 @@ export const CategoryFilterContainer: FC<CategoryFilterContainerProps> = ({
     setCurrentPage,
     searchBarText,
     setSearchBarText,
-    currentAnimeCutegory,
+    currentAnimeCategory,
     setCurrentAnimeCategory,
     currentMaterialCutegory,
     setCurrentMaterialCategory,
@@ -25,7 +25,7 @@ export const CategoryFilterContainer: FC<CategoryFilterContainerProps> = ({
 
     return (
         <CategoryFilter
-            currentAnimeCutegory={currentAnimeCutegory}
+            currentAnimeCategory={currentAnimeCategory}
             setCurrentAnimeCategory={setCurrentAnimeCategory}
             currentMaterialCutegory={currentMaterialCutegory}
             setCurrentMaterialCategory={setCurrentMaterialCategory}

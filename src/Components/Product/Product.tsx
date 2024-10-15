@@ -6,17 +6,16 @@ import { ModalComponent } from "../ModalComponent/ModalComponent";
 import { DeleteButton } from "../DeleteButton/DeleteButton";
 import { ProductProps } from "./Product.types";
 import { FC } from "react";
+import mainStore from "../../store/mainStore";
 
 export const Product: FC<ProductProps> = ({
     product,
-    login,
-    password,
     setFilteredProductsList,
 }) => {
     const [isOpened, setIsOpened] = useState(false);
     return (
         <div className={productWrapper}>
-            {login && password && (
+            {mainStore.admin.isAdmin && (
                 <DeleteButton
                     product={product}
                     type={"admin"}
@@ -26,12 +25,13 @@ export const Product: FC<ProductProps> = ({
             <ProductPic
                 setIsOpened={setIsOpened}
                 picType={"productPic"}
-                pic={product.pic}
+                pic={product[1].pic}
             />
             <ProductMiniDescription
                 setIsOpened={setIsOpened}
                 product={product}
             />
+
             <ModalComponent
                 isOpened={isOpened}
                 setIsOpened={setIsOpened}

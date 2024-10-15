@@ -1,14 +1,8 @@
 import Checkbox, { CheckboxChangeEvent } from "antd/es/checkbox/Checkbox";
 import { categoryWrapper } from "./Category.styles";
 import "./Category.css";
-import { FC, useState } from "react";
-
-interface CategoryProps {
-    title: string;
-    setValue: (value: string[]) => void;
-    value: string[];
-    filterTitle: string;
-}
+import { FC } from "react";
+import { CategoryProps } from "./Category.types";
 
 export const Category: FC<CategoryProps> = ({
     title,
@@ -28,7 +22,6 @@ export const Category: FC<CategoryProps> = ({
     const isChecked = () => {
         for (let i = 0; i < value.length; i++) {
             if (value[i] === filterTitle) {
-                console.log(value[i] + "" + filterTitle);
                 return true;
             }
         }

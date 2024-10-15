@@ -11,4 +11,5 @@ export const mainPageWrapper = css({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#FCF8F2",
+    marginTop: "60px",
 });

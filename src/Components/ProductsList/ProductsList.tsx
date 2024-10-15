@@ -13,8 +13,6 @@ export const ProductsList: FC<ProductsListProps> = ({
     setCurrentPage,
     currentPage,
     currentListItems,
-    login,
-    password,
 }) => {
     return (
         <div className={productsListWrapper}>
@@ -24,13 +22,13 @@ export const ProductsList: FC<ProductsListProps> = ({
                 setFilteredProductsList={setFilteredProductsList}
                 filteredProductsList={filteredProductsList}
             />
+
             <Products
                 filteredProductsList={filteredProductsList}
                 setFilteredProductsList={setFilteredProductsList}
                 currentListItems={currentListItems}
-                login={login}
-                password={password}
             />
+
             <ListPagination
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { ProductsList } from "../ProductsList/ProductsList";
 import { ProductsListContainerProps } from "./ProductsListContainer.types";
 import { productType } from "../data/data";
@@ -8,8 +8,7 @@ import { searchedProducts } from "../../helpers";
 export const ProductsListContainer: FC<ProductsListContainerProps> = ({
     filteredProductsList,
     setFilteredProductsList,
-    login,
-    password,
+
     currentPage,
     setCurrentPage,
     searchBarText,
@@ -19,11 +18,15 @@ export const ProductsListContainer: FC<ProductsListContainerProps> = ({
     setPriceFrom,
     setPriceTo,
 }) => {
-    const [currentListItems, setCurrentListItems] = useState<
-        productType[] | null
-    >(null);
+    const [currentListItems, setCurrentListItems] =
+        useState<productType | null>(null);
     const lastPageIndex = currentPage * 12;
     const firstPageIndex = lastPageIndex - 12;
+
+    const memSearchedProducts = useMemo(
+        () => searchedProducts(filteredProductsList, searchBarText),
+        [filteredProductsList, searchBarText]
+    );
 
     useEffect(() => {
         if (searchBarText.length >= 3) {
@@ -31,10 +34,9 @@ export const ProductsListContainer: FC<ProductsListContainerProps> = ({
             setPriceTo(0);
             setCurrentAnimeCategory([]);
             setCurrentMaterialCategory([]);
-            setFilteredProductsList(
-                searchedProducts(filteredProductsList, searchBarText)
-            );
-        } else setFilteredProductsList(mainStore.products.allProducts);
+            setFilteredProductsList(memSearchedProducts);
+        } else
+            setFilteredProductsList(Array.from(mainStore.products.allProducts));
     }, [searchBarText]);
 
     useEffect(() => {
@@ -54,8 +56,6 @@ export const ProductsListContainer: FC<ProductsListContainerProps> = ({
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
             currentListItems={currentListItems}
-            login={login}
-            password={password}
         />
     );
 };

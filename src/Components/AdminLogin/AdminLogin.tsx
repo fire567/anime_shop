@@ -1,7 +1,6 @@
 import { Button, Form } from "antd";
 import { authorizationInputs } from "../data/data";
 import { AuthorizationInput } from "../AuthorizationInput/AuthorizationInput";
-import { AdminLoginProps } from "./AdminLogin.types";
 import { useNavigate } from "react-router-dom";
 import { FC } from "react";
 import {
@@ -10,15 +9,15 @@ import {
     formWrapper,
     buttonWrapper,
 } from "./AdminLogin.styles";
+import mainStore from "../../store/mainStore";
 
-export const AdminLogin: FC<AdminLoginProps> = ({
-    login,
-    setLogin,
-    password,
-    setPassword,
-    isButtonDisabled,
-}) => {
+export const AdminLogin: FC = () => {
     const navigate = useNavigate();
+
+    const loginHandler = () => {
+        mainStore.admin.changeIsAdmin();
+        navigate("/");
+    };
 
     return (
         <div className={adminLoginWrapper}>
@@ -30,6 +29,7 @@ export const AdminLogin: FC<AdminLoginProps> = ({
                 style={{ maxWidth: 600 }}
                 initialValues={{ remember: true }}
                 autoComplete="off"
+                onFinish={() => loginHandler()}
             >
                 <div className={formWrapper}>
                     {authorizationInputs.map((input) => (
@@ -38,20 +38,11 @@ export const AdminLogin: FC<AdminLoginProps> = ({
                             label={input.label}
                             name={input.name}
                             message={input.message}
-                            text={input.label === "Login" ? login : password}
-                            setText={
-                                input.label === "Login" ? setLogin : setPassword
-                            }
                         />
                     ))}
                 </div>
                 <div className={buttonWrapper}>
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        disabled={isButtonDisabled}
-                        onClick={() => navigate("/")}
-                    >
+                    <Button type="primary" htmlType="submit">
                         Вход
                     </Button>
                 </div>

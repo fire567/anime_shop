@@ -1,109 +1,132 @@
-import { productType } from "./Components/data/data";
+import { productEntityType, productType } from "./Components/data/data";
 import mainStore from "./store/mainStore";
 
 export const nameSortHandler = (
-    products: productType[],
-    filteredProducts: (value: productType[]) => void,
-    switcher: boolean
+    products: productType,
+    setProducts: (value: productType) => void,
+    switcher: "ASC" | "DESC" | undefined
 ) => {
     const newProducts = [...products];
-    !switcher
-        ? newProducts.sort((a: productType, b: productType) => {
-              if (a.productName > b.productName) {
-                  return 1;
-              }
-              if (a.productName < b.productName) {
-                  return -1;
-              }
+    if (switcher === "ASC") {
+        setProducts(
+            newProducts.sort(
+                (
+                    a: [number, productEntityType],
+                    b: [number, productEntityType]
+                ) => {
+                    if (b[1].productName > a[1].productName) {
+                        return 1;
+                    }
+                    if (b[1].productName < a[1].productName) {
+                        return -1;
+                    }
 
-              return 0;
-          })
-        : newProducts.sort((a: productType, b: productType) => {
-              if (b.productName > a.productName) {
-                  return 1;
-              }
-              if (b.productName < a.productName) {
-                  return -1;
-              }
+                    return 0;
+                }
+            )
+        );
+    } else if (switcher === "DESC") {
+        setProducts(
+            newProducts.sort(
+                (
+                    a: [number, productEntityType],
+                    b: [number, productEntityType]
+                ) => {
+                    if (a[1].productName > b[1].productName) {
+                        return 1;
+                    }
+                    if (a[1].productName < b[1].productName) {
+                        return -1;
+                    }
 
-              return 0;
-          });
-
-    filteredProducts(newProducts);
+                    return 0;
+                }
+            )
+        );
+    } else setProducts(Array.from(mainStore.products.allProducts));
 };
 
 export const priceSortHandler = (
-    products: productType[],
-    filteredProducts: (value: productType[]) => void,
-    switcher: boolean
+    products: productType,
+    setProducts: (value: productType) => void,
+    switcher: "ASC" | "DESC" | undefined
 ) => {
     const newProducts = [...products];
-    !switcher
-        ? newProducts.sort(
-              (a: productType, b: productType) => b.price - a.price
-          )
-        : newProducts.sort(
-              (a: productType, b: productType) => a.price - b.price
-          );
-
-    filteredProducts(newProducts);
+    if (switcher === "ASC") {
+        setProducts(
+            newProducts.sort(
+                (
+                    a: [number, productEntityType],
+                    b: [number, productEntityType]
+                ) => a[1].price - b[1].price
+            )
+        );
+    } else if (switcher === "DESC") {
+        setProducts(
+            newProducts.sort(
+                (
+                    a: [number, productEntityType],
+                    b: [number, productEntityType]
+                ) => b[1].price - a[1].price
+            )
+        );
+    } else setProducts(Array.from(mainStore.products.allProducts));
 };
 
 export const priceCountHandler = () => {
     let price = 0;
-    if (mainStore.cart.cartProducts.length > 0) {
-        for (let i = 0; i < mainStore.cart.cartProducts.length; i++) {
-            if (mainStore.cart.cartProducts[i].count > 1) {
-                price +=
-                    mainStore.cart.cartProducts[i].price *
-                    mainStore.cart.cartProducts[i].count;
-            } else price += mainStore.cart.cartProducts[i].price;
+    if (Array.from(mainStore.cart.cartProducts).length > 0) {
+        for (
+            let i = 0;
+            i < Array.from(mainStore.cart.cartProducts).length;
+            i++
+        ) {
+            price +=
+                Array.from(mainStore.cart.cartProducts)[i][1].price *
+                Array.from(mainStore.cart.cartProducts)[i][1].count!;
         }
     } else return price;
 
     return price;
 };
 
-export const filteredproducts = (
-    currentAnimeCutegory: string[],
-    currentMaterialCutegory: string[],
+export const filterProducts = (
+    currentAnimeCategory: string[],
+    currentMaterialCategory: string[],
     priceTo: number,
     priceFrom: number
 ) => {
-    let animeFilter = [...mainStore.products.allProducts];
+    let animeFilter = [...Array.from(mainStore.products.allProducts)];
 
-    if (currentAnimeCutegory.length > 0) {
-        animeFilter = mainStore.products.allProducts.filter((product) => {
-            for (let i = 0; i < currentAnimeCutegory.length; i++) {
-                if (currentAnimeCutegory[i] === product.anime) {
-                    return true;
-                }
-            }
-            return false;
-        });
+    if (currentAnimeCategory.length > 0) {
+        animeFilter = Array.from(mainStore.products.allProducts).filter(
+            (product) =>
+                currentAnimeCategory.some(
+                    (category) => category === product[1].anime
+                )
+        );
     }
 
     let materialFilter = animeFilter;
-    if (currentMaterialCutegory.length > 0) {
-        materialFilter = animeFilter.filter((product) => {
-            for (let i = 0; i < currentMaterialCutegory.length; i++) {
-                if (currentMaterialCutegory[i] === product.material) {
-                    return true;
-                }
-            }
-            return false;
-        });
+    if (currentMaterialCategory.length > 0) {
+        materialFilter = animeFilter.filter((product) =>
+            currentMaterialCategory.some(
+                (category) => category === product[1].material
+            )
+        );
     }
 
     let priceFilter = materialFilter;
     if (priceTo || priceFrom) {
         priceFilter = materialFilter.filter((product) => {
             if (priceFrom && !priceTo) {
-                return priceFrom <= product.price;
+                return priceFrom <= product[1].price;
             } else if (!priceFrom && priceTo) {
-                return priceTo >= product.price;
+                return priceTo >= product[1].price;
             } else if (priceFrom && priceTo) {
-                return priceFrom <= product.price && priceTo >= product.price;
+                return (
+                    priceFrom <= product[1].price && priceTo >= product[1].price
+                );
             }
         });
     }
@@ -112,13 +135,11 @@ export const filteredproducts = (
 };
 
 export const searchedProducts = (
-    filteredProductsList: productType[],
+    filteredProductsList: productType,
     searchBarText: string
 ) => {
-    const currentList = filteredProductsList;
-
-    const newList = currentList.filter((product) => {
-        return product.productName
+    const newList = filteredProductsList.filter((product) => {
+        return product[1].productName
             .toLowerCase()
             .includes(searchBarText.toLowerCase());
     });

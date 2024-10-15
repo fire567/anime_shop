@@ -8,6 +8,11 @@ export const sortOptionWrapper = css({
     color: "#3D3D3D",
 });
 
-export const triangleWrapper = css({
+export const increasedTriangleWrapper = css({
     marginLeft: "10px",
+});
+
+export const decreasedTriangleWrapper = css({
+    marginLeft: "10px",
+    transform: "rotate(180deg)",
 });

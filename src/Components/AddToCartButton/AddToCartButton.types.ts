@@ -1,5 +1,5 @@
-import { productType } from "../data/data";
+import { productEntityType } from "../data/data";
 
 export interface AddToCartButtonProps {
-    product: productType;
+    product: [number, productEntityType];
 }

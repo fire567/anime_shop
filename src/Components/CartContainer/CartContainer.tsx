@@ -15,7 +15,7 @@ export const CartContainer = observer(() => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
     useEffect(() => {
-        if (mainStore.cart.cartProducts.length > 0 && address) {
+        if (mainStore.cart.cartProducts.size > 0 && address) {
             setIsButtonDisabled(false);
         } else setIsButtonDisabled(true);
     }, [address, mainStore.cart]);
@@ -35,6 +35,7 @@ export const CartContainer = observer(() => {
             <OrderButton
                 setIsOpened={setIsOpened}
                 isButtonDisabled={isButtonDisabled}
+                setAddress={setAddress}
             />
             <GrasttitudeModalWindow
                 isOpened={isOpened}

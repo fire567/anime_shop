@@ -1,27 +1,26 @@
 import { makeAutoObservable } from "mobx";
-import { productsData, productType } from "../Components/data/data";
+import {
+    productsData,
+    productMapType,
+    productEntityType,
+    productType,
+} from "../Components/data/data";
 import { toJS } from "mobx";
 
 class Products {
-    allProducts: productType[] = [...productsData];
+    allProducts: productMapType = productsData;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    deleteProduct(product: productType) {
-        for (let i = 0; i < this.allProducts.length; i++) {
-            if (this.allProducts[i].id === product.id) {
-                this.allProducts.splice(i, 1);
-            }
-        }
+    addProduct(product: productEntityType) {
+        this.allProducts.set(this.allProducts.size, product);
     }
 
-    addProduct(product: productType) {
-        this.allProducts.push(product);
+    deleteProduct(product: [number, productEntityType]) {
+        this.allProducts.delete(product[0]);
     }
 }
-
-const products = new Products();
 
 export default Products;

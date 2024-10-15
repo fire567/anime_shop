@@ -13,11 +13,12 @@ import { observer } from "mobx-react";
 export const ProductMiniDescription: FC<ProductMiniDescriptionProps> = observer(
     ({ setIsOpened, product }) => {
         const drawButtonHandler = () => {
-            if (mainStore.cart.cartProducts.length > 0) {
-                for (let i = 0; i < mainStore.cart.cartProducts.length; i++) {
+            if (mainStore.cart.cartProducts.size > 0) {
+                for (let i = 0; i < mainStore.cart.cartProducts.size; i++) {
                     if (
-                        mainStore.cart.cartProducts[i].id === product.id &&
-                        mainStore.cart.cartProducts[i].count > 0
+                        Array.from(mainStore.cart.cartProducts)[i][0] ===
+                            product[0] &&
+                        Array.from(mainStore.cart.cartProducts)[i][1].count! > 0
                     ) {
                         return <ChangeProductEntityButton product={product} />;
                     }
@@ -30,12 +31,12 @@ export const ProductMiniDescription: FC<ProductMiniDescriptionProps> = observer(
         return (
             <div className={productMiniDescriptionWrapper}>
                 <div className={figureName} onClick={() => setIsOpened(true)}>
-                    {product.productName}
+                    {product[1].productName}
                 </div>
                 <div className={description}>
                     <div>
                         <div>Цена:</div>
-                        <div>{product.price} ₽</div>
+                        <div>{product[1].price} ₽</div>
                     </div>
                     {mainStore.cart && drawButtonHandler()}
                 </div>

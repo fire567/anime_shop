@@ -1,6 +1,5 @@
 import "./App.css";
 import { Layout } from "antd";
-import { HeaderComponent } from "./Components/Header/HeaderComponent";
 import { MainPage } from "./Components/MainPage/MainPage";
 import { CartPage } from "./Components/CartPage/CartPage";
 import { Routes, Route } from "react-router-dom";
@@ -15,10 +14,8 @@ function App() {
         <div className="App">
             <Layout>
                 <Routes>
-                    <Route
-                        path="/"
-                        element={<MainPage login={login} password={password} />}
-                    />
+                    <Route path="/" element={<MainPage />} />
+
                     <Route path="cart" element={<CartPage />} />
                     <Route
                         path="admin"

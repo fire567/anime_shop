@@ -14,18 +14,30 @@ export const ChangeProductEntityButton: FC<ChangeProductEntityButtonProps> =
         };
 
         const drawCount = () => {
-            for (let i = 0; i < mainStore.cart.cartProducts.length; i++) {
-                if (mainStore.cart.cartProducts[i].id === product.id) {
-                    return mainStore.cart.cartProducts[i].count;
+            for (
+                let i = 0;
+                i < Array.from(mainStore.cart.cartProducts).length;
+                i++
+            ) {
+                console.log(mainStore.cart.cartProducts);
+                if (
+                    Array.from(mainStore.cart.cartProducts)[i][0] === product[0]
+                ) {
+                    return Array.from(mainStore.cart.cartProducts)[i][1].count;
                 }
             }
         };
 
         const decreaseEntityHandler = () => {
-            for (let i = 0; i < mainStore.cart.cartProducts.length; i++) {
+            for (
+                let i = 0;
+                i < Array.from(mainStore.cart.cartProducts).length;
+                i++
+            ) {
                 if (
-                    mainStore.cart.cartProducts[i].id === product.id &&
-                    mainStore.cart.cartProducts[i].count > 0
+                    Array.from(mainStore.cart.cartProducts)[i][0] ===
+                        product[0] &&
+                    Array.from(mainStore.cart.cartProducts)[i][1].count! > 0
                 ) {
                     mainStore.cart.decreaseProductEntity(product);
                 }

@@ -1,6 +1,6 @@
-import { productType } from "../data/data";
+import { productEntityType, productType } from "../data/data";
 
 export interface ProductMiniDescriptionProps {
     setIsOpened: (value: boolean) => void;
-    product: productType;
+    product: [number, productEntityType];
 }
